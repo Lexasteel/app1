@@ -1,0 +1,95 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.v-row {
+  margin: 0px !important;
+}
+
+.row-alarm > td {
+  color: red !important;
+}
+
+.row-alarm-bold > td {
+  font-weight: bold !important;
+}
+
+.month .dx-texteditor-input {
+  text-align: center;
+}
+
+.dx-data-row .cell-highlighted5 {
+  background-color: #f6b4da;
+}
+
+.dx-datagrid-headers .dx-header-row .cell-highlighted5 {
+  color: black;
+  /*font-style: italic;*/
+  background-color: #f6b4da;
+}
+
+.grey {
+  /*background-color: #d5d5d5;*/
+  font-weight: bold;
+}
+
+.dx-tab-text {
+  /*word-wrap: break-word;
+  white-space: pre-wrap;
+  //width: 50px;*/
+  font-size: large;
+}
+
+.dx-icon {
+  display: inline-block;
+}
+
+.dx-data-row .cell-highlighted6 {
+  background-color: #fde482;
+}
+
+.dx-header-row .cell-highlighted6 {
+  color: black;
+  /*font-style: italic;*/
+  background-color: #fde482;
+}
+
+.dx-data-row .cell-highlighted7 {
+  background-color: #bad7c8;
+}
+
+.dx-header-row .cell-highlighted7 {
+  color: black;
+  /*font-style: italic;*/
+  background-color: #bad7c8;
+}
+
+.dx-data-row .cell-highlighted8 {
+  background-color: #e9d5be;
+}
+
+.dx-header-row .cell-highlighted8 {
+  /*   color: black;*/
+  /*font-style: italic;*/
+  background-color: #e9d5be;
+}
+
+.dx-data-row .cell-highlighted9 {
+  background-color: #ce9d8e;
+}
+
+.dx-header-row .cell-highlighted9 {
+  color: black;
+  /*font-style: italic;*/
+  background-color: #ce9d8e;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+  unicode-range: U+000-5FF;
+  src: local('Roboto'), url('fonts/Roboto-Regular.woff2') format('woff2'),
+    url('fonts/Roboto-Regular.woff') format('woff');
+}
