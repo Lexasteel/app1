@@ -1,33 +1,45 @@
 <template>
-  <v-container fluid>
-    <v-row>
-      <my-month-selector class="mt-2" v-bind="{dataSource}">
-      </my-month-selector>
-    </v-row>
-    <v-row>
-      <DxDataGrid
-        class="mt-3"
-        :columns="columnsSHBM"
-        :data-source="dataSource"
-        no-data-text=""
-        :hoverStateEnabled="true"
-        width="97vw"
-        :showBorders="true"
-        :focusedRowEnabled="true"
-        @exporting="onExporting"
-        :word-wrap-enabled="true"
-      >
-        <DxSelection mode="single"> </DxSelection>
-        <DxLoadPanel :enabled="true" />
-        <DxPaging :enabled="false" />
-        <DxExport :enabled="true" :allow-export-selected-data="true" />
-      </DxDataGrid>
+  <v-container>
+    <v-row no-gutters>
+      <v-col>
+        <v-tabs v-model="tab">
+          <v-tab v-for="unit in units" :key="unit.id">{{ unit.text }}</v-tab>
+        </v-tabs>
+      </v-col>
+      <v-col cols="2">
+        <my-month-picker @change="() => dataSource.reload()"></my-month-picker>
+      </v-col>
+
+      <v-window v-model="tab">
+        <v-window-item v-for="unit in units" :key="unit.id">
+          <DxDataGrid
+            :columns="columnsSHBM(unit.id, unit.id)"
+            :data-source="dataSource"
+            no-data-text=""
+            :hoverStateEnabled="true"
+            :showBorders="true"
+            :focusedRowEnabled="true"
+            @exporting="onExporting"
+            :word-wrap-enabled="true"
+          >
+            <DxSelection mode="single"> </DxSelection>
+            <DxLoadPanel :enabled="true" />
+            <DxPaging :enabled="false" />
+            <DxExport :enabled="true" />
+          </DxDataGrid>
+        </v-window-item>
+      </v-window>
     </v-row>
   </v-container>
 </template>
-
 <script>
-import MyMonthSelector from '@/components/MyMonthSelector'
+export default {
+  name: 'MyShbm',
+}
+</script>
+<script setup>
+import {ref} from 'vue'
+import {useStore} from 'vuex'
 import DataSource from 'devextreme/data/data_source'
 import CustomStore from 'devextreme/data/custom_store'
 import {
@@ -38,73 +50,51 @@ import {
   DxPaging,
 } from 'devextreme-vue/data-grid'
 import {columnsSHBM} from '@/components/ColumnsShbm.js'
+import MyMonthPicker from '@/components/MyMonthPicker.vue'
+import {units} from '@/components/units.js'
 import axios from '@/api/axios'
 import {Workbook} from 'exceljs'
 import {saveAs} from 'file-saver-es'
 import {exportDataGrid} from 'devextreme/excel_exporter'
-export default {
-  name: 'MyShbm',
-  data() {
-    const dataSource = new DataSource({
-      store: new CustomStore({
-        key: 'id',
-        load: () => {
-          const year = this.$store.state.year
-          const month = this.$store.state.month
-          this.d = year.toString().concat('-', month.toString(), '-01T00:00:00')
-          return axios
-            .get('shbm', {
-              params: {date: this.d},
-            })
-            .catch((e) => {
-              console.log(e)
-            })
-        },
-      }),
-    })
-    return {
-      dataSource: dataSource,
-      columnsSHBM,
-    }
-  },
-  components: {
-    MyMonthSelector,
-    DxDataGrid,
-    DxSelection,
-    DxExport,
-    DxLoadPanel,
-    DxPaging,
-  },
-  beforeCreate() {
-    // console.log('beforeshbm', this.year)
-  },
-  created() {
-    // console.log('createdshbm', this.d)
-  },
-  mounted() {},
-  methods: {
-    OnValueChanged() {
-      this.dataSource.reload()
-    },
-    onExporting(e) {
-      const workbook = new Workbook()
-      const worksheet = workbook.addWorksheet('ШБМ')
 
-      exportDataGrid({
-        component: e.component,
-        worksheet,
-        autoFilterEnabled: true,
-      }).then(() => {
-        workbook.xlsx.writeBuffer().then((buffer) => {
-          saveAs(
-            new Blob([buffer], {type: 'application/octet-stream'}),
-            'ШБМ-' + this.month + '-' + this.year + '.xlsx'
-          )
+const dataSource = new DataSource({
+  store: new CustomStore({
+    key: 'id',
+    load: () => {
+      const year = store.state.year
+      const month = store.state.month
+      let d = year.toString().concat('-', month.toString(), '-01T00:00:00')
+      return axios
+        .get('shbm', {
+          params: {date: d},
         })
-      })
-      e.cancel = true
+        .catch((e) => {
+          console.log(e)
+        })
     },
-  },
+  }),
+})
+
+const store = useStore()
+const tab = ref(null)
+
+function onExporting(e) {
+  const workbook = new Workbook()
+  const worksheet = workbook.addWorksheet('ШБМ')
+
+  exportDataGrid({
+    component: e.component,
+    worksheet,
+    autoFilterEnabled: true,
+  }).then(() => {
+    workbook.xlsx.writeBuffer().then((buffer) => {
+      saveAs(
+        new Blob([buffer], {type: 'application/octet-stream'}),
+        'ШБМ-' + store.state.month + '-' + store.state.year + '.xlsx'
+      )
+    })
+  })
+  e.cancel = true
 }
 </script>
 

@@ -30,14 +30,4 @@ export default {
 }
 </script>
 
-<style>
-/* @import "./assets/css/minireset.min.css"; */
-/* @import '@/assets/fonts/roboto.css'; */
-
-/* #app {
-  font-family: 'Roboto';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #333333;
-} */
-</style>
+<style></style>

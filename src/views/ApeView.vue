@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col md="3">
-        <my-month-selector> </my-month-selector>
+        <MyMonthPicker></MyMonthPicker>
         <my-grid-stages></my-grid-stages>
       </v-col>
       <v-col md="9" inline>
@@ -23,7 +23,16 @@
 </template>
 
 <script>
-import MyMonthSelector from '@/components/MyMonthSelector.vue'
+export default {
+  name: 'MyApe',
+}
+</script>
+<script setup>
+import {ref} from 'vue'
+import {useStore} from 'vuex'
+//import {useRoute} from 'vue-router'
+//import MyMonthSelector from '@/components/MyMonthSelector.vue'
+import MyMonthPicker from '@/components/MyMonthPicker.vue'
 import MyGridStages from '@/components/MyGridStages.vue'
 import MyGridAlarms from '@/components/MyGridAlarms.vue'
 import DxTabs from 'devextreme-vue/tabs'
@@ -31,36 +40,30 @@ import axios from '@/api/axios'
 import CustomStore from 'devextreme/data/custom_store'
 import DataSource from 'devextreme/data/data_source'
 
-export default {
-  name: 'MyApe',
-  components: {
-    MyMonthSelector,
-    MyGridStages,
-    MyGridAlarms,
-    DxTabs,
-  },
-  data() {
-    const dataSource = new DataSource({
-      store: new CustomStore({
-        key: 'id',
-        load: () => {
-          return axios.get('stages/last').catch((e) => {
-            console.log(e)
-          })
-        },
-      }),
-    })
-    return {
-      dataSource: dataSource,
-    }
-  },
+const store = useStore()
+//const route = useRoute()
+const dataSource = ref(
+  new DataSource({
+    store: new CustomStore({
+      key: 'id',
+      load: () => {
+        return axios.get('stages/last').catch((e) => {
+          console.log(e)
+        })
+      },
+    }),
+  })
+)
 
-  methods: {
-    onItemClick(e) {
-      this.$store.commit('setUnit', e.itemData.id)
-      this.$store.state.StoreStages.reload()
-    },
-  },
+// if (name == 'ape') {
+//   store.state.StoreStages.reload()
+// } else {
+//   dataSource.value.reload()
+// }
+
+function onItemClick(e) {
+  store.commit('setUnit', e.itemData.id)
+  store.state.StoreStages.reload()
 }
 </script>
 
