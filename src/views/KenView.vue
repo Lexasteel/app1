@@ -54,19 +54,18 @@ import axios from '@/api/axios'
 import {Workbook} from 'exceljs'
 import {saveAs} from 'file-saver-es'
 import {exportDataGrid} from 'devextreme/excel_exporter'
+import moment from 'moment'
 const store = useStore()
 const tab = ref(null)
 const dataSource = new DataSource({
   store: new CustomStore({
-    key: 'dateTime',
+    key: 'date',
     load: () => {
-      const year = store.state.year
-      const month = store.state.month
-      const d = year.toString().concat('-', month.toString(), '-01T00:00:00')
-
       return axios
         .get('kens', {
-          params: {date: d},
+          params: {
+            date: moment(store.state.date).format('YYYY-MM-DDT00:00:00'),
+          },
         })
         .catch((e) => {
           console.log(e)
@@ -87,7 +86,7 @@ function onExporting(e) {
     workbook.xlsx.writeBuffer().then((buffer) => {
       saveAs(
         new Blob([buffer], {type: 'application/octet-stream'}),
-        'KEN-' + store.state.month + '-' + store.state.year + '.xlsx'
+        'KEN-' + moment(store.state.date).format('MM-YYYY') + '.xlsx'
       )
     })
   })

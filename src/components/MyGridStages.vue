@@ -1,6 +1,5 @@
 <template>
   <DxDataGrid
-    :data-source="dataSource"
     no-data-text=""
     :hoverStateEnabled="true"
     height="75vh"
@@ -8,7 +7,6 @@
     :focusedRowEnabled="true"
     @focusedRowChanged="onFocusedRowChanged"
   >
-    <!-- <DxColumn type="buttons" buttons="[edit, delete]"></DxColumn> -->
     <DxColumn dataField="id" :visible="false"> </DxColumn>
     <DxColumn dataField="unit" :visible="false"> </DxColumn>
     <DxColumn
@@ -40,56 +38,36 @@
     <DxSelection mode="single"> </DxSelection>
   </DxDataGrid>
 </template>
-
 <script>
+export default {
+  name: 'MyGridStages',
+}
+</script>
+<script setup>
+import {useStore} from 'vuex'
 import {
   DxDataGrid,
   DxColumn,
   DxEditing,
   DxSelection,
 } from 'devextreme-vue/data-grid'
-import DataSource from 'devextreme/data/data_source'
-export default {
-  name: 'MyGridStages',
-  date() {
-    return {
-      dataSource: new DataSource(),
-    }
-  },
-  computed: {
-    // focusedRowStagesEnabled: function () {
-    //   return this.$store.state.focusedRowStagesEnabled
-    // },
-    dataSource: function () {
-      return this.$store.state.StoreStages
-    },
-  },
-  components: {
-    DxDataGrid,
-    DxColumn,
-    DxEditing,
-    DxSelection,
-  },
-  methods: {
-    onFocusedRowChanged(e) {
-      if (e.rowIndex == -1) return
-      let dates = {
-        stage4Date: e.row.data.stage4,
-        stage5Date: e.row.data.stage5,
-      }
-      if (!e.row.data.stage4) {
-        dates.stage4Date = 0
-      }
-      if (!e.row.data.stage5) {
-        dates.stage5Date = 0
-      }
-      this.$store.commit('setStageDates', dates)
-      this.$store.state.StoreAlarms.reload()
-    },
-  },
-  created() {
-    this.$store.dispatch('setDataSourceGridStages')
-  },
+const store = useStore()
+//eslint-disable-next-line
+const emit = defineEmits(['focusedChangedStages'])
+function onFocusedRowChanged(e) {
+  if (e.rowIndex == -1) return
+  let dates = {
+    stage4Date: e.row.data.stage4,
+    stage5Date: e.row.data.stage5,
+  }
+  if (!e.row.data.stage4) {
+    dates.stage4Date = 0
+  }
+  if (!e.row.data.stage5) {
+    dates.stage5Date = 0
+  }
+  store.commit('setStageDates', dates)
+  emit('focusedChangedStages')
 }
 </script>
 

@@ -72,7 +72,9 @@
           </DxDataGrid>
         </v-window-item>
         <v-window-item value="3">
-          <MyChartPen></MyChartPen>
+          <div class="d-flex flex-column">
+            <MyChartPen></MyChartPen>
+          </div>
         </v-window-item>
       </v-window>
     </v-row>
@@ -108,7 +110,7 @@ import {Workbook} from 'exceljs'
 import {saveAs} from 'file-saver-es'
 import {exportDataGrid} from 'devextreme/excel_exporter'
 import MyChartPen from '@/components/MyChartPen'
-
+import moment from 'moment'
 const store = useStore()
 const tabParent = ref(null)
 const tabChild = ref(null)
@@ -117,13 +119,11 @@ const dataSource = new DataSource({
   store: new CustomStore({
     key: 'id',
     load: () => {
-      const year = store.state.year
-      const month = store.state.month
-      const d = year.toString().concat('-', month.toString(), '-01T00:00:00')
-
       return axios
         .get('pens', {
-          params: {date: d},
+          params: {
+            date: moment(store.state.date).format('YYYY-MM-DDT00:00:00'),
+          },
         })
         .catch((e) => {
           console.log(e)
@@ -136,13 +136,11 @@ const dataSourcePower = new DataSource({
   store: new CustomStore({
     key: 'id',
     load: () => {
-      const year = store.state.year
-      const month = store.state.month
-      const d = year.toString().concat('-', month.toString(), '-01T00:00:00')
-
       return axios
         .get('pens/Power', {
-          params: {date: d},
+          params: {
+            date: moment(store.state.date).format('YYYY-MM-DDT00:00:00'),
+          },
         })
         .catch((e) => {
           console.log(e)
@@ -174,7 +172,7 @@ function onExporting(e) {
     workbook.xlsx.writeBuffer().then((buffer) => {
       saveAs(
         new Blob([buffer], {type: 'application/octet-stream'}),
-        'PEN-' + store.state.month + '-' + store.state.year + '.xlsx'
+        'PEN-' + moment(store.state.date).format('MM-YYYY') + '.xlsx'
       )
     })
   })

@@ -7,7 +7,7 @@ export function columnsKen(s, f) {
   if (f == 0) f = 9
   let cols = [
     {
-      dataField: 'dateTime',
+      dataField: 'date',
       width: gridwidth + 20,
       caption: 'Дата',
       alignment: 'center',

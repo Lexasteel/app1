@@ -32,6 +32,7 @@
             />
             <DxSelection mode="single"></DxSelection>
             <DxLoadPanel :enabled="true" />
+            <DxPaging :enabled="false" />
             <DxExport :enabled="true" :allow-export-selected-data="true" />
           </DxDataGrid>
         </v-window-item>
@@ -63,11 +64,15 @@
     </v-row>
   </v-container>
 </template>
-
 <script>
+export default {
+  name: 'MyROU',
+}
+</script>
+<script setup>
+import {ref} from 'vue'
+import {useStore} from 'vuex'
 import MyMonthPicker from '@/components/MyMonthPicker.vue'
-//import MyMonthSelector from '@/components/MyMonthSelector'
-//import DxTabs from 'devextreme-vue/tabs'
 import DataSource from 'devextreme/data/data_source'
 import CustomStore from 'devextreme/data/custom_store'
 import {
@@ -76,93 +81,62 @@ import {
   DxExport,
   DxLoadPanel,
   DxEditing,
+  DxPaging,
 } from 'devextreme-vue/data-grid'
-import {columns24} from '@/components/ColumnsRou.js'
-import {columns140} from '@/components/ColumnsRou.js'
-import {tabs} from '@/components/ColumnsRou.js'
+import {columns24, columns140, tabs} from '@/components/ColumnsRou.js'
 import axios from '@/api/axios'
 import {Workbook} from 'exceljs'
 import {saveAs} from 'file-saver-es'
 import {exportDataGrid} from 'devextreme/excel_exporter'
-export default {
-  name: 'MyROU',
-  data() {
-    const dataSource = new DataSource({
-      store: new CustomStore({
-        key: 'id',
-        load: () => {
-          const year = this.$store.state.year
-          const month = this.$store.state.month
-          const d = year
-            .toString()
-            .concat('-', month.toString(), '-01T00:00:00')
+import moment from 'moment'
 
-          return axios
-            .get('rous', {
-              params: {date: d},
-            })
-            .catch((e) => {
-              console.log(e)
-            })
-        },
-        update: (key, values) => {
-          // console.log('key=', key, 'val=', values)
-          return axios
-            .put('/rous', {
-              id: key,
-              values: values,
-            })
-            .catch((e) => {
-              console.log(e)
-            })
-        },
-      }),
-    })
-    return {
-      dataSource: dataSource,
-      columns24,
-      columns140,
-      tabs,
-      selectedIndex: 0,
-      tab: null,
-    }
-  },
-  components: {
-    MyMonthPicker,
-    //MyMonthSelector,
-    DxDataGrid,
-    DxSelection,
-    DxExport,
-    //DxTabs,
-    DxLoadPanel,
-    DxEditing,
-  },
-  methods: {
-    onItemClick() {
-      this.isVisible24 = !this.isVisible24
-    },
-    onExporting(e) {
-      const workbook = new Workbook()
-      const worksheet = workbook.addWorksheet('ROU')
-
-      exportDataGrid({
-        component: e.component,
-        worksheet,
-        autoFilterEnabled: true,
-      }).then(() => {
-        workbook.xlsx.writeBuffer().then((buffer) => {
-          saveAs(
-            new Blob([buffer], {type: 'application/octet-stream'}),
-            'ROU-' +
-              this.$store.state.month +
-              '-' +
-              this.$store.state.year +
-              '.xlsx'
-          )
+const dataSource = new DataSource({
+  store: new CustomStore({
+    key: 'id',
+    load: () => {
+      return axios
+        .get('rous', {
+          params: {
+            date: moment(store.state.date).format('YYYY-MM-DDT00:00:00'),
+          },
         })
-      })
-      e.cancel = true
+        .catch((e) => {
+          console.log(e)
+        })
     },
-  },
+    update: (key, values) => {
+      // console.log('key=', key, 'val=', values)
+      return axios
+        .put('/rous', {
+          id: key,
+          values: values,
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    },
+  }),
+})
+
+const store = useStore()
+const tab = ref(null)
+
+const onExporting = (e) => {
+  const workbook = new Workbook()
+  const worksheet = workbook.addWorksheet('ROU')
+
+  exportDataGrid({
+    component: e.component,
+    worksheet,
+    autoFilterEnabled: true,
+  }).then(() => {
+    workbook.xlsx.writeBuffer().then((buffer) => {
+      saveAs(
+        new Blob([buffer], {type: 'application/octet-stream'}),
+        'ROU-' + moment(store.state.date).format('MM-YYYY') + '.xlsx'
+      )
+    })
+  })
+  e.cancel = true
 }
 </script>

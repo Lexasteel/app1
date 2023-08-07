@@ -23,9 +23,23 @@ export default {
     return {}
   },
   created() {
-    this.$store.commit('setMonthYear', new Date())
+    //console.log('created App')
+    // if (this.$store.year == undefined) {
+    //   this.$store.commit('setMonthYear', new Date())
+    // }
+    //this.$store.commit('setUnit', 5)
+
+    if (this.$store.unit == undefined) {
+      this.$store.commit('setUnit', 5)
+    }
+    //console.log('created this.$store.unit: ', this.$store.unit)
+
     loadMessages(ruMessages)
     locale('ru')
+  },
+  mounted() {
+    //console.log('mounted App')
+    //console.log('mounted this.$store.unit: ', this.$store.unit)
   },
 }
 </script>

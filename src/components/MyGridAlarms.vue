@@ -1,6 +1,5 @@
 <template>
   <DxDataGrid
-    :data-source="dataSource"
     :show-columnLines="true"
     :word-wWrap-enabled="true"
     no-data-text=""
@@ -64,8 +63,13 @@
     <DxLoadPanel :enabled="true" />
   </DxDataGrid>
 </template>
-
 <script>
+export default {
+  name: 'MyGridAlarms',
+}
+</script>
+
+<script setup>
 import {
   DxDataGrid,
   DxColumn,
@@ -74,51 +78,18 @@ import {
   DxButton,
   DxLoadPanel,
 } from 'devextreme-vue/data-grid'
-import DataSource from 'devextreme/data/data_source'
-export default {
-  name: 'MyGridAlarms',
-  date() {
-    return {
-      dataSource: new DataSource(),
-    }
-  },
-  computed: {
-    // focusedRowAlarmsEnabled: function () {
-    //   return this.$store.state.focusedRowAlarmsEnabled
-    // },
-    dataSource: function () {
-      //console.log(this.$store.state.datasourceGridAlarms)
-      return this.$store.state.StoreAlarms
-    },
-  },
-  components: {
-    DxDataGrid,
-    DxColumn,
-    DxEditing,
-    DxSelection,
-    DxButton,
-    DxLoadPanel,
-  },
-  methods: {
-    chartShow() {
-      console.log('press charShow!')
-    },
-    onRowPrepared(info) {
-      //console.log(info)
-
-      if (info.rowType == 'data' && info.data.deviation != null) {
-        //        console.log('cls')
-        info.rowElement.className += ' row-alarm'
-      }
-      if (info.rowType == 'data' && info.data.criterion == 0) {
-        //        console.log(info)
-        info.rowElement.className += ' row-alarm-bold'
-      }
-    },
-  },
-  created() {
-    this.$store.dispatch('setDataSourceGridAlarms')
-  },
+const chartShow = () => {
+  console.log('press charShow!')
+}
+const onRowPrepared = (info) => {
+  if (info.rowType == 'data' && info.data.deviation != null) {
+    //        console.log('cls')
+    info.rowElement.className += ' row-alarm'
+  }
+  if (info.rowType == 'data' && info.data.criterion == 0) {
+    //        console.log(info)
+    info.rowElement.className += ' row-alarm-bold'
+  }
 }
 </script>
 
