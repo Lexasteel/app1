@@ -15,11 +15,11 @@
 //:format-locale="uk"
 //format="LLLL yyyy"
 //import {uk} from 'date-fns/locale'
-import {ref, onMounted, defineEmits} from 'vue'
+import {ref, onMounted} from 'vue'
 import {useStore} from 'vuex'
 import Datepicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
-
+//eslint-disable-next-line
 const emit = defineEmits(['change'])
 const store = useStore()
 const date = ref()

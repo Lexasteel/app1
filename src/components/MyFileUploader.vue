@@ -25,9 +25,10 @@ export default {
 import DxFileUploader from 'devextreme-vue/file-uploader'
 import axios from '@/api/axios'
 //import {useStore} from 'vuex'
-//import {ref} from 'vue'
+import {defineEmits} from 'vue'
 const url = axios.defaults.baseURL + '/FileUploader'
-
+//eslint-disable-next-line
+const emit = defineEmits(['uploaded'])
 function onUploadError(e) {
   // this.$store.state.logRequestArr.push({
   console.log('Upload error:', e.request.responseText)
@@ -35,23 +36,29 @@ function onUploadError(e) {
 }
 
 function onUploaded(args) {
+  //console.log(JSON.parse(args.request.response))
+  emit(
+    'uploaded',
+    JSON.parse(args.request.response).filter((w) => w.length > 1)
+  )
   //'{"unit":5,"dateMin":"2023-01-12T00:00:00","dateMax":"2023-01-12T00:00:00"}'
-  let res = JSON.parse(args.request.response)
-  axios
-    .get('/FIleUploader/Recalc', {
-      params: {
-        date: res.dateMin,
-      },
-    })
-    .then((response) => {
-      console.log('Recalc response:', response.data)
-      //state.logRequestArr.push({message: response.data})
-    })
-    .catch((e) => {
-      console.log('Recalc error:', e)
-      //state.logRequestArr.push({message: e})
-    })
+  // let res = JSON.parse(args.request.response)
+  // axios
+  //   .get('/FIleUploader/Recalc', {
+  //     params: {
+  //       date: res.dateMin,
+  //     },
+  //   })
+  //   .then((response) => {
+  //     console.log('Recalc response:', response.data)
+  //     //state.logRequestArr.push({message: response.data})
+  //   })
+  //   .catch((e) => {
+  //     console.log('Recalc error:', e)
+  //     //state.logRequestArr.push({message: e})
+  //   })
 }
+
 //:upload-headers="headers"
 // headers: {
 //   'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Accept',

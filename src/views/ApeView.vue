@@ -47,6 +47,7 @@ import axios from '@/api/axios'
 import CustomStore from 'devextreme/data/custom_store'
 import DataSource from 'devextreme/data/data_source'
 import moment from 'moment'
+document.title = 'ПУСКИ'
 const store = useStore()
 
 const dataSource = ref(

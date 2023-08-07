@@ -106,7 +106,7 @@ const dataSource = new DataSource({
         .put('/fileuploader/edit', {
           id: key,
           values: values,
-          unit: 0,
+          unit: store.state.unit,
         })
         .catch((e) => {
           console.log('Edit update err:', e)

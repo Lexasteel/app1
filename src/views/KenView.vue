@@ -32,7 +32,7 @@
 </template>
 <script>
 export default {
-  name: 'MyPen',
+  name: 'MyKen',
 }
 </script>
 <script setup>
@@ -55,6 +55,7 @@ import {Workbook} from 'exceljs'
 import {saveAs} from 'file-saver-es'
 import {exportDataGrid} from 'devextreme/excel_exporter'
 import moment from 'moment'
+document.title = 'КЭН'
 const store = useStore()
 const tab = ref(null)
 const dataSource = new DataSource({

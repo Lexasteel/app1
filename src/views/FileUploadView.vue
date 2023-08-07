@@ -2,7 +2,10 @@
   <v-container>
     <v-row>
       <v-col cols="5">
-        <my-file-uploader> </my-file-uploader>
+        <my-file-uploader
+          @uploaded="(res) => res.forEach((element) => modelLog.push(element))"
+        >
+        </my-file-uploader>
 
         <v-sheet
           class="mt-2 mx-auto py-3 px-8 rounded-lg"
@@ -77,7 +80,7 @@ import {useStore} from 'vuex'
 import moment from 'moment'
 import {ref} from 'vue'
 import axios from '@/api/axios'
-
+document.title = 'Загрузка'
 const store = useStore()
 const modelUnits = ref(store.state.unit)
 const unitsRadio = [4, 5, 6, 7, 8, 9]

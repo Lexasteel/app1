@@ -7,7 +7,7 @@ export function columnsSHBM(s, f) {
   if (f == 0) f = 9
   let cols = [
     {
-      dataField: 'id',
+      dataField: 'datetime',
       width: gridwidth + 20,
 
       caption: 'Дата',

@@ -111,6 +111,7 @@ import {saveAs} from 'file-saver-es'
 import {exportDataGrid} from 'devextreme/excel_exporter'
 import MyChartPen from '@/components/MyChartPen'
 import moment from 'moment'
+document.title = 'ПЭН'
 const store = useStore()
 const tabParent = ref(null)
 const tabChild = ref(null)

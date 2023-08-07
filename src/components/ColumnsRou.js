@@ -8,7 +8,7 @@ export const tabs = [
     text: 'РОУ 140/15',
   },
 ]
-const width = 60
+const width = 70
 export const columns24 = [
   {
     dataField: 'id',
@@ -89,6 +89,7 @@ export const columns24 = [
   {
     dataField: 'output',
     caption: 'Отпуск э/э за сутки кВт*ч',
+    cssClass: 'cell-highlighted' + 5,
   },
   {
     dataField: 'hourly',
@@ -127,6 +128,7 @@ export const columns140 = [
     dataField: 'output3',
     caption: 'Блок 3 Отпуск э/э за сутки, кВт*ч',
     allowEditing: true,
+    cssClass: 'cell-highlighted' + 5,
   },
   {
     dataField: 'unit7Big',

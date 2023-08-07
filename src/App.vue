@@ -38,6 +38,7 @@ export default {
     locale('ru')
   },
   mounted() {
+    document.title = 'Пуски энергоблоков'
     //console.log('mounted App')
     //console.log('mounted this.$store.unit: ', this.$store.unit)
   },
