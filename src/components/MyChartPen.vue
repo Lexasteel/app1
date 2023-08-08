@@ -91,7 +91,9 @@
   <h3 class="pt-4">Уравнения:</h3>
   <ul id="ul-equation">
     <li v-for="item in source" :key="item.name">
-      <p>{{ item.name }}: {{ item.trend }}</p>
+      <p>
+        <b>{{ item.name }}:</b> {{ item.trend }}
+      </p>
     </li>
   </ul>
 </template>
@@ -154,9 +156,10 @@ export default {
       .get('pens/Chart')
       .then(
         (response) => {
-          let s = response.data.filter((item) => Object.hasOwn(item, 'name'))
+          this.source = response.data.filter((item) =>
+            Object.hasOwn(item, 'name')
+          )
 
-          this.source = s
           // this.sourceChart = response.data.filter((el) => !s.includes(el))
           this.sourceChart = response.data
           //   console.log(this.sourceChart)
@@ -172,6 +175,8 @@ export default {
 <style>
 #chart {
   height: 600px;
-  width: 100%;
+  width: 75vw;
+  display: inline !important;
+  justify-content: center;
 }
 </style>

@@ -8,7 +8,7 @@ export const tabs = [
     text: 'РОУ 140/15',
   },
 ]
-
+const width = 70
 export const columns24 = [
   {
     dataField: 'id',
@@ -20,7 +20,7 @@ export const columns24 = [
     caption: 'Дата',
     allowEditing: false,
     alignment: 'center',
-    width: '110px',
+    width: '100px',
     format: 'dd.MM.yy',
     sortOrder: 'asc',
   },
@@ -28,38 +28,43 @@ export const columns24 = [
     dataField: 'unit3',
     caption: 'РОУ блок 3',
     allowEditing: false,
+    width: width,
   },
   {
     dataField: 'unit4',
     caption: 'РОУ блок 4',
     allowEditing: false,
+    width: width,
   },
   {
     dataField: 'unit5',
     caption: 'РОУ блок 5',
     allowEditing: false,
-    width: '70px',
+    width: width,
   },
   {
     dataField: 'unit6',
     caption: 'РОУ блок 6',
     allowEditing: false,
+    width: width,
   },
   {
     dataField: 'unit7',
     caption: 'РОУ блок 7',
     allowEditing: false,
+    width: width,
   },
   {
     dataField: 'unit8',
     caption: 'РОУ блок 8',
     allowEditing: false,
+    width: width,
   },
   {
     dataField: 'unit9',
     caption: 'РОУ блок 9',
     allowEditing: false,
-    width: '70px',
+    width: width,
   },
   {
     dataField: 'summa24',
@@ -84,6 +89,7 @@ export const columns24 = [
   {
     dataField: 'output',
     caption: 'Отпуск э/э за сутки кВт*ч',
+    cssClass: 'cell-highlighted' + 5,
   },
   {
     dataField: 'hourly',
@@ -116,17 +122,19 @@ export const columns140 = [
     dataField: 'unit3Big',
     caption: 'Блок 3 140/15, т/ч',
     allowEditing: false,
+    width: width,
   },
   {
     dataField: 'output3',
     caption: 'Блок 3 Отпуск э/э за сутки, кВт*ч',
     allowEditing: true,
+    cssClass: 'cell-highlighted' + 5,
   },
   {
     dataField: 'unit7Big',
     caption: 'Блок 7 140/15, т/ч',
     allowEditing: false,
-    width: '70px',
+    width: width,
   },
   {
     dataField: 'output7',
@@ -137,6 +145,7 @@ export const columns140 = [
     dataField: 'unit9Big',
     caption: 'Блок 9 140/15, т/ч',
     allowEditing: false,
+    width: width,
   },
   {
     dataField: 'output9',
@@ -147,10 +156,12 @@ export const columns140 = [
     dataField: 'summa140',
     caption: '∑РОУ 140/15, т/ч',
     allowEditing: false,
+    width: width,
   },
   {
     dataField: 'kpd',
     caption: 'КПД котла нетто',
+    width: width,
   },
   // {
   //    dataField: "b",
@@ -171,16 +182,19 @@ export const columns140 = [
     dataField: 'deltab3',
     caption: '∆b блок 3, г/кВт*ч',
     allowEditing: false,
+    width: width,
   },
   {
     dataField: 'deltab7',
     caption: '∆b блок 7, г/кВт*ч',
     allowEditing: false,
+    width: width,
   },
   {
     dataField: 'deltab9',
     caption: '∆b блок 9, г/кВт*ч',
     allowEditing: false,
+    width: width,
   },
   {
     dataField: 'deltab140',

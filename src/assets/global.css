@@ -2,10 +2,6 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.v-row {
-  margin: 0px !important;
-}
-
 .row-alarm > td {
   color: red !important;
 }

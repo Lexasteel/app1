@@ -1,108 +1,138 @@
 <template>
   <v-container>
-    <v-row class="mt-0">
-      <v-col class="pb-0">
-        <h3 class="text-center">Загрузка фaйлов</h3>
-      </v-col>
-    </v-row>
     <v-row>
-      <v-col>
-        <my-file-uploader> </my-file-uploader>
-      </v-col>
-      <v-col class="d-flex flex-wrap align-center">
-        <v-radio-group inline hide-details="true" @click="SetEditUnit">
-          <v-radio label="4" value="4" color="primary"></v-radio>
-          <v-radio label="5" value="5" color="primary"></v-radio>
-          <v-radio label="6" value="6" color="primary"></v-radio>
-          <v-radio label="7" value="7" color="primary"></v-radio>
-          <v-radio label="8" value="8" color="primary"></v-radio>
-          <v-radio label="9" value="9" color="primary"></v-radio>
-        </v-radio-group>
-        <DxDateBox
-          class="ma-3 w-25"
-          v-model:value="now"
-          type="date"
-          @value-changed="DateBoxEditValueChanged"
-        ></DxDateBox>
+      <v-col cols="5">
+        <my-file-uploader
+          @uploaded="(res) => res.forEach((element) => modelLog.push(element))"
+        >
+        </my-file-uploader>
 
+        <v-sheet
+          class="mt-2 mx-auto py-3 px-8 rounded-lg"
+          elevation="6"
+          width="100%"
+        >
+          <v-progress-linear
+            :indeterminate="loading"
+            color="primary"
+            height="10"
+            rounded
+          ></v-progress-linear>
+          <ul>
+            <li v-for="item in modelLog" :key="item">
+              {{ item }}
+            </li>
+          </ul>
+        </v-sheet>
+      </v-col>
+      <v-col>
+        <v-row>
+          <v-col>
+            <v-radio-group
+              inline
+              v-model="modelUnits"
+              @update:model-value="updateUnit"
+              hide-details="true"
+            >
+              <template v-for="unit in unitsRadio" :key="unit">
+                <v-radio
+                  :label="unit + ''"
+                  :value="unit"
+                  color="primary"
+                ></v-radio>
+              </template>
+            </v-radio-group>
+          </v-col>
+          <v-col cols="3" class="d-flex align-items:center">
+            <Datepicker
+              v-model="date"
+              @update:model-value="setDate"
+              auto-apply
+              locale="uk"
+              :clearable="false"
+              format="dd.MM.yyyy"
+            />
+          </v-col>
+          <v-col cols="2">
+            <v-btn @click="btnSubmit"> Submit</v-btn>
+          </v-col>
+        </v-row>
         <v-btn class="ma-3" @click="btnRecalc"> Recalc</v-btn>
         <v-btn class="ma-3" @click="btnCheckData"> Check</v-btn>
-        <v-btn class="ma-3" @click="btnSubmit"> Submit</v-btn>
-        <my-grid-edit></my-grid-edit>
+
+        <my-grid-edit ref="myGridEditref"></my-grid-edit>
       </v-col>
     </v-row>
   </v-container>
 </template>
-
 <script>
-import MyFileUploader from '@/components/MyFileUploader.vue'
-import MyGridEdit from '@/components/MyGridEdit.vue'
-import DxDateBox from 'devextreme-vue/date-box'
-
 export default {
   name: 'MyUpload',
-  data() {
-    return {
-      now: new Date(),
-      units: [],
-      count: 0,
+}
+</script>
 
-      // units: ['Блок 4', 'Блок 5', 'Блок 6', 'Блок 7', 'Блок 8', 'Блок 9'],
-    }
-  },
-  components: {
-    MyFileUploader,
-    DxDateBox,
-    MyGridEdit,
-  },
-  actions: {},
-  methods: {
-    DateBoxEditValueChanged(e) {
-      let month = e.value.getMonth() + 1
-      if (e.value.getMonth() < 10) {
-        month = '0' + month
-      }
-      let day = e.value.getDate()
-      if (e.value.getDate() < 10) {
-        day = '0' + day
-      }
-      this.$store.commit(
-        'setEditDate',
-        e.value.getFullYear() + '-' + month + '-' + day + 'T00:00:00'
-      )
-    },
-    SetEditUnit(event) {
-      this.$store.commit('setEditUnit', event.target.value)
-    },
-    btnRecalc() {
-      let d = new Date()
-      let month = d.getMonth() + 1
-      if (d.getMonth() < 10) {
-        month = '0' + month
-      }
-      //let day = d.getDate()
-      //if (d.getDate() < 10) {
-      //  day = '0' + day
-      //}
-      this.$store.dispatch('Recalc', {
-        date: d.getFullYear() + '-' + month + '-01T00:00:00',
-      })
-    },
-    btnCheckData() {
-      let d = new Date()
-      let month = d.getMonth() + 1
-      if (d.getMonth() < 10) {
-        month = '0' + month
-      }
-      this.$store.dispatch('CheckData', {
-        date: d.getFullYear() + '-' + month + '-01T00:00:00',
-      })
-    },
-    btnSubmit() {
-      this.$store.dispatch('setDataSourceGridEdit')
-      //this.$store.state.StoreEdit.reload()
-    },
-  },
+<script setup>
+import MyFileUploader from '@/components/MyFileUploader.vue'
+import MyGridEdit from '@/components/MyGridEdit.vue'
+import Datepicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
+import {useStore} from 'vuex'
+import moment from 'moment'
+import {ref} from 'vue'
+import axios from '@/api/axios'
+document.title = 'Загрузка'
+const store = useStore()
+const modelUnits = ref(store.state.unit)
+const unitsRadio = [4, 5, 6, 7, 8, 9]
+const modelLog = ref([])
+const loading = ref(false)
+const date = ref(store.state.date)
+const myGridEditref = ref()
+const updateUnit = (modelValue) => {
+  store.commit('setUnit', modelValue)
+}
+const setDate = (modelData) => {
+  store.commit('setDate', modelData)
+}
+const btnRecalc = async () => {
+  loading.value = true
+  modelLog.value.push(
+    'Recalc data from ' +
+      moment(store.state.date).format('YYYY-MM-DDTHH:mm:ss .....')
+  )
+  try {
+    const resp = await axios.get('/FIleUploader/Recalc', {
+      params: {
+        date: moment(store.state.date).format('YYYY-MM-DDT00:00:00'),
+      },
+    })
+    modelLog.value.push(moment().format('HH:mm:ss ') + resp.data)
+    //console.log('get')
+  } catch (e) {
+    modelLog.value.push(moment().format('HH:mm:ss ') + 'Recalc error: ' + e)
+  }
+  loading.value = false
+}
+const btnCheckData = async () => {
+  loading.value = true
+  modelLog.value.push(
+    'Check data from ' +
+      moment(store.state.date).format('YYYY-MM-DDTHH:mm:ss .....')
+  )
+  try {
+    const resp = await axios.get('/FIleUploader/CheckData', {
+      params: {
+        date: moment(store.state.date).format('YYYY-MM-DDT00:00:00'),
+      },
+    })
+    modelLog.value.push(resp.data)
+  } catch (e) {
+    modelLog.value.push(moment().format('HH:mm:ss ') + 'Check data error:' + e)
+  }
+  loading.value = false
+}
+function btnSubmit() {
+  myGridEditref.value.dataSource.reload()
 }
 </script>
 
