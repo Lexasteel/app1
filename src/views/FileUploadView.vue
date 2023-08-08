@@ -83,7 +83,7 @@ import axios from '@/api/axios'
 document.title = 'Загрузка'
 const store = useStore()
 const modelUnits = ref(store.state.unit)
-const unitsRadio = [4, 5, 6, 7, 8, 9]
+const unitsRadio = [4, 5, 6, 7, 8, 9, 0]
 const modelLog = ref([])
 const loading = ref(false)
 const date = ref(store.state.date)
@@ -97,16 +97,19 @@ const setDate = (modelData) => {
 const btnRecalc = async () => {
   loading.value = true
   modelLog.value.push(
-    'Recalc data from ' +
-      moment(store.state.date).format('YYYY-MM-DDTHH:mm:ss .....')
+    'Recalc data from ' + moment(store.state.date).format('YYYY-MM-DD .....')
   )
   try {
     const resp = await axios.get('/FIleUploader/Recalc', {
       params: {
-        date: moment(store.state.date).format('YYYY-MM-DDT00:00:00'),
+        unit: store.state.unit,
+        date: moment(store.state.date).format('YYYY-MM-DD'),
       },
     })
-    modelLog.value.push(moment().format('HH:mm:ss ') + resp.data)
+    resp.data.split(';').forEach((element) => {
+      modelLog.value.push(moment().format('HH:mm:ss ') + element)
+    })
+
     //console.log('get')
   } catch (e) {
     modelLog.value.push(moment().format('HH:mm:ss ') + 'Recalc error: ' + e)
@@ -116,13 +119,13 @@ const btnRecalc = async () => {
 const btnCheckData = async () => {
   loading.value = true
   modelLog.value.push(
-    'Check data from ' +
-      moment(store.state.date).format('YYYY-MM-DDTHH:mm:ss .....')
+    'Check data from ' + moment(store.state.date).format('YYYY-MM-DD .....')
   )
   try {
     const resp = await axios.get('/FIleUploader/CheckData', {
       params: {
-        date: moment(store.state.date).format('YYYY-MM-DDT00:00:00'),
+        unit: store.state.unit,
+        date: moment(store.state.date).format('YYYY-MM-DD'),
       },
     })
     modelLog.value.push(resp.data)
