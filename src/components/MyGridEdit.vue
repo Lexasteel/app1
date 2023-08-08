@@ -93,7 +93,7 @@ const dataSource = new DataSource({
         .get('/fileuploader/edit', {
           params: {
             unit: store.state.unit,
-            date: moment(store.state.date).format('YYYY-MM-DDT00:00:00'),
+            date: moment(store.state.date).format('YYYY-MM-DD'),
           },
         })
         .catch((e) => {
