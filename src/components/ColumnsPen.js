@@ -13,6 +13,7 @@ export function columnsPen(s, f) {
       dataType: 'date',
       format: 'dd.MM.yy',
       fixed: true,
+      cssClass: 'column-date',
     },
   ]
 
@@ -89,6 +90,7 @@ export function columnsPower(s, f) {
       alignment: 'center',
       dataType: 'date',
       format: 'MM.yyyy',
+      cssClass: 'column-date',
     },
   ]
   for (let i = 5; i <= 9; i++) {

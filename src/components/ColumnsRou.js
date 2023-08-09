@@ -23,6 +23,7 @@ export const columns24 = [
     width: '100px',
     format: 'dd.MM.yy',
     sortOrder: 'asc',
+    cssClass: 'column-date',
   },
   {
     dataField: 'unit3',
@@ -117,6 +118,7 @@ export const columns140 = [
     width: '110px',
     format: 'dd.MM.yy',
     sortOrder: 'asc',
+    cssClass: 'column-date',
   },
   {
     dataField: 'unit3Big',

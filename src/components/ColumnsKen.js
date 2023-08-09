@@ -13,6 +13,7 @@ export function columnsKen(s, f) {
       alignment: 'center',
       dataType: 'date',
       format: 'dd.MM.yy',
+      cssClass: 'column-date',
     },
   ]
 

@@ -9,11 +9,11 @@ export function columnsSHBM(s, f) {
     {
       dataField: 'datetime',
       width: gridwidth + 20,
-
       caption: 'Дата',
       alignment: 'center',
       dataType: 'date',
       format: 'dd.MM.yy',
+      cssClass: 'column-date',
     },
   ]
 

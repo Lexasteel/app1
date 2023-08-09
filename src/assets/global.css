@@ -1,5 +1,6 @@
 body {
   font-family: 'Roboto', sans-serif;
+  background-color: #eaddff;
 }
 
 .row-alarm > td {
@@ -30,6 +31,16 @@ body {
   display: inline-block;
 }
 
+.dx-datagrid,
+.dx-datagrid-header-panel,
+.dx-toolbar {
+  background-color: transparent;
+}
+
+.column-date {
+  background-color: #d1c4e9;
+}
+
 .dx-data-row .cell-highlighted5,
 .dx-header-row .cell-highlighted5 {
   background-color: #ede7f6;
@@ -45,24 +56,18 @@ body {
   background-color: #b39ddb;
 }
 
-.dx-data-row .cell-highlighted8 {
-  background-color: #e9d5be;
-}
-
+.dx-data-row .cell-highlighted8,
 .dx-header-row .cell-highlighted8 {
-  /*   color: black;*/
-  /*font-style: italic;*/
-  background-color: #e9d5be;
+  background-color: #d1c4e9;
 }
 
-.dx-data-row .cell-highlighted9 {
-  background-color: #ce9d8e;
-}
-
+.dx-data-row .cell-highlighted9,
 .dx-header-row .cell-highlighted9 {
-  color: black;
-  /*font-style: italic;*/
-  background-color: #ce9d8e;
+  background-color: #ede7f6;
+}
+
+.dx-datagrid-header-panel {
+  background-color: '#EADDFF';
 }
 
 @font-face {
@@ -71,6 +76,6 @@ body {
   font-style: normal;
   font-display: auto;
   unicode-range: U+000-5FF;
-  src: local('Roboto'), url('fonts/Roboto-Regular.woff2') format('woff2'),
-    url('fonts/Roboto-Regular.woff') format('woff');
+  src: local('Roboto'), url('./fonts/Roboto-Regular.woff2') format('woff2'),
+    url('./fonts/Roboto-Regular.woff') format('woff');
 }
