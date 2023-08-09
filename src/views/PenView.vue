@@ -123,7 +123,7 @@ const dataSource = new DataSource({
       return axios
         .get('pens', {
           params: {
-            date: moment(store.state.date).format('YYYY-MM-DDT00:00:00'),
+            date: moment(store.state.date).format('YYYY-MM-01'),
           },
         })
         .catch((e) => {
@@ -137,15 +137,9 @@ const dataSourcePower = new DataSource({
   store: new CustomStore({
     key: 'id',
     load: () => {
-      return axios
-        .get('pens/Power', {
-          params: {
-            date: moment(store.state.date).format('YYYY-MM-DDT00:00:00'),
-          },
-        })
-        .catch((e) => {
-          console.log(e)
-        })
+      return axios.get('pens/Power').catch((e) => {
+        console.log(e)
+      })
     },
     update: (key, values) => {
       // console.log('key=', key, 'val=', values)

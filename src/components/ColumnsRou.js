@@ -140,6 +140,7 @@ export const columns140 = [
     dataField: 'output7',
     caption: 'Блок 7 Отпуск э/э за сутки, кВт*ч',
     allowEditing: true,
+    cssClass: 'cell-highlighted' + 5,
   },
   {
     dataField: 'unit9Big',
@@ -151,6 +152,7 @@ export const columns140 = [
     dataField: 'output9',
     caption: 'Блок 9 Отпуск э/э за сутки, кВт*ч',
     allowEditing: true,
+    cssClass: 'cell-highlighted' + 5,
   },
   {
     dataField: 'summa140',
@@ -171,6 +173,7 @@ export const columns140 = [
   {
     dataField: 'output',
     caption: 'Отпуск э/э за сутки кВт*ч',
+    cssClass: 'cell-highlighted' + 5,
   },
   //{
   //  dataField: "hourly",

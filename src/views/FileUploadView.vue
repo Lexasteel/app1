@@ -27,7 +27,7 @@
       </v-col>
       <v-col>
         <v-row>
-          <v-col>
+          <v-col class="pr-0">
             <v-radio-group
               inline
               v-model="modelUnits"
@@ -80,10 +80,12 @@ import {useStore} from 'vuex'
 import moment from 'moment'
 import {ref} from 'vue'
 import axios from '@/api/axios'
+import DataSource from 'devextreme/data/data_source'
+import CustomStore from 'devextreme/data/custom_store'
 document.title = 'Загрузка'
 const store = useStore()
 const modelUnits = ref(store.state.unit)
-const unitsRadio = [4, 5, 6, 7, 8, 9, 0]
+const unitsRadio = [3, 4, 5, 6, 7, 8, 9, 0]
 const modelLog = ref([])
 const loading = ref(false)
 const date = ref(store.state.date)
@@ -134,8 +136,42 @@ const btnCheckData = async () => {
   }
   loading.value = false
 }
+const dataSource = new DataSource({
+  store: new CustomStore({
+    key: 'id',
+    load: () => {
+      return axios
+        .get('/fileuploader/edit', {
+          params: {
+            unit: store.state.unit,
+            date: moment(store.state.date).format('YYYY-MM-DD'),
+          },
+        })
+        .catch((e) => {
+          console.log('Edit err', e)
+        })
+    },
+    update: (key, values) => {
+      // console.log('key=', key, 'val=', values)
+      return axios
+        .put('/fileuploader', {
+          id: key,
+          values: values,
+          unit: store.state.unit,
+          date: moment(store.state.date).format('YYYY-MM-DD'),
+        })
+        .catch((e) => {
+          console.log('Edit update err:', e)
+        })
+    },
+  }),
+})
 function btnSubmit() {
-  myGridEditref.value.dataSource.reload()
+  if (myGridEditref.value.dataSource == null) {
+    myGridEditref.value.dataSource = dataSource
+  } else {
+    myGridEditref.value.dataSource.reload()
+  }
 }
 </script>
 

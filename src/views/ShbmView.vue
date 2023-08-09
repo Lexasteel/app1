@@ -65,7 +65,7 @@ const dataSource = new DataSource({
       return axios
         .get('shbm', {
           params: {
-            date: moment(store.state.date).format('YYYY-MM-DDT00:00:00'),
+            date: moment(store.state.date).format('YYYY-MM-01'),
           },
         })
         .catch((e) => {
