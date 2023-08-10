@@ -1,34 +1,31 @@
 <template>
-  <v-container fluid>
-    <v-row>
-      <v-col md="3">
-        <my-month-picker
-          @change="() => dataSourceStages.reload()"
-        ></my-month-picker>
-        <my-grid-stages
-          :data-source="dataSourceStages"
-          @focused-changed-stages="() => dataSourceAlarms.reload()"
-        ></my-grid-stages>
-      </v-col>
-      <v-col md="9" inline>
-        <h3 pb="2" style="text-align: center">Анализ пусков энергоблоков</h3>
-        <v-sheet
-          class="my-3 pa-1 rounded-lg"
-          elevation="6"
-          width="100%"
-          style="background-color: #f7f7f7"
-        >
-          <DxTabs
-            :data-source="dataSource"
-            :selected-index="store.state.unit - 3"
-            @item-click="onItemClick"
-          ></DxTabs>
-        </v-sheet>
-
-        <my-grid-alarms :data-source="dataSourceAlarms"> </my-grid-alarms>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-row>
+    <v-col md="3">
+      <my-month-picker
+        @change="() => dataSourceStages.reload()"
+      ></my-month-picker>
+      <my-grid-stages
+        :data-source="dataSourceStages"
+        @focused-changed-stages="() => dataSourceAlarms.reload()"
+      ></my-grid-stages>
+    </v-col>
+    <v-col md="9" inline>
+      <h3 pb="2" style="text-align: center">Анализ пусков энергоблоков</h3>
+      <v-sheet
+        class="my-3 pa-1 rounded-lg"
+        elevation="6"
+        width="100%"
+        style="background-color: #f7f7f7"
+      >
+        <DxTabs
+          :data-source="dataSource"
+          :selected-index="store.state.unit - 3"
+          @item-click="onItemClick"
+        ></DxTabs>
+      </v-sheet>
+      <my-grid-alarms :data-source="dataSourceAlarms"> </my-grid-alarms>
+    </v-col>
+  </v-row>
 </template>
 
 <script>

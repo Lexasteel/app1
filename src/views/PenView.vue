@@ -1,84 +1,82 @@
 <template>
-  <v-container>
-    <v-row no-gutters>
-      <v-col>
-        <v-tabs v-model="tabParent">
-          <v-tab value="1">Наработка</v-tab>
-          <v-tab value="2">Потребление Э/Э</v-tab>
-          <v-tab value="3">Графики</v-tab>
-        </v-tabs>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-window v-model="tabParent">
-        <v-window-item value="1">
-          <v-row>
-            <v-col>
-              <v-tabs v-model="tabChild">
-                <v-tab v-for="unit in units" :key="unit.id">{{
-                  unit.text
-                }}</v-tab>
-              </v-tabs>
-            </v-col>
-            <v-col cols="2">
-              <my-month-picker
-                @change="() => dataSource.reload()"
-              ></my-month-picker>
-            </v-col>
-          </v-row>
-          <v-window v-model="tabChild">
-            <v-window-item v-for="unit in units" :key="unit.id">
-              <DxDataGrid
-                :columns="columnsPen(unit.id, unit.id)"
-                :data-source="dataSource"
-                no-data-text=""
-                :hoverStateEnabled="true"
-                :showBorders="true"
-                :focusedRowEnabled="true"
-                :word-wrap-enabled="true"
-                @exporting="onExporting"
-                :column-min-width="70"
-              >
-                <DxLoadPanel :enabled="true" />
-                <DxPaging :enabled="false" />
-                <DxExport :enabled="true" />
-              </DxDataGrid>
-            </v-window-item>
-          </v-window>
-        </v-window-item>
-        <v-window-item value="2">
-          <DxDataGrid
-            :columns="columnsPower(0, 0)"
-            :data-source="dataSourcePower"
-            no-data-text=""
-            :hoverStateEnabled="true"
-            :showBorders="true"
-            :focusedRowEnabled="true"
-            :word-wrap-enabled="true"
-            @exporting="onExporting"
-            :show-column-lines="true"
-          >
-            <DxEditing
-              :allow-updating="true"
-              mode="batch"
-              :select-text-on-edit-start="true"
-              start-edit-action="dblClick"
-            />
-            <DxSelection mode="single"></DxSelection>
-            <DxScrolling mode="virtual" />
-            <DxLoadPanel :enabled="true" />
-            <DxPaging :enabled="false" />
-            <DxExport :enabled="true" :allow-export-selected-data="true" />
-          </DxDataGrid>
-        </v-window-item>
-        <v-window-item value="3">
-          <div class="d-flex flex-column">
-            <MyChartPen></MyChartPen>
-          </div>
-        </v-window-item>
-      </v-window>
-    </v-row>
-  </v-container>
+  <v-row no-gutters>
+    <v-col>
+      <v-tabs v-model="tabParent">
+        <v-tab value="1">Наработка</v-tab>
+        <v-tab value="2">Потребление Э/Э</v-tab>
+        <v-tab value="3">Графики</v-tab>
+      </v-tabs>
+    </v-col>
+  </v-row>
+  <v-row>
+    <v-window v-model="tabParent">
+      <v-window-item value="1">
+        <v-row>
+          <v-col>
+            <v-tabs v-model="tabChild">
+              <v-tab v-for="unit in units" :key="unit.id">{{
+                unit.text
+              }}</v-tab>
+            </v-tabs>
+          </v-col>
+          <v-col cols="2">
+            <my-month-picker
+              @change="() => dataSource.reload()"
+            ></my-month-picker>
+          </v-col>
+        </v-row>
+        <v-window v-model="tabChild">
+          <v-window-item v-for="unit in units" :key="unit.id">
+            <DxDataGrid
+              :columns="columnsPen(unit.id, unit.id)"
+              :data-source="dataSource"
+              no-data-text=""
+              :hoverStateEnabled="true"
+              :showBorders="true"
+              :focusedRowEnabled="true"
+              :word-wrap-enabled="true"
+              @exporting="onExporting"
+              :column-min-width="70"
+            >
+              <DxLoadPanel :enabled="true" />
+              <DxPaging :enabled="false" />
+              <DxExport :enabled="true" />
+            </DxDataGrid>
+          </v-window-item>
+        </v-window>
+      </v-window-item>
+      <v-window-item value="2">
+        <DxDataGrid
+          :columns="columnsPower(0, 0)"
+          :data-source="dataSourcePower"
+          no-data-text=""
+          :hoverStateEnabled="true"
+          :showBorders="true"
+          :focusedRowEnabled="true"
+          :word-wrap-enabled="true"
+          @exporting="onExporting"
+          :show-column-lines="true"
+        >
+          <DxEditing
+            :allow-updating="true"
+            mode="batch"
+            :select-text-on-edit-start="true"
+            start-edit-action="dblClick"
+          />
+          <DxSelection mode="single"></DxSelection>
+          <DxScrolling mode="virtual" />
+          <DxLoadPanel :enabled="true" />
+          <DxPaging :enabled="false" />
+          <DxExport :enabled="true" :allow-export-selected-data="true" />
+        </DxDataGrid>
+      </v-window-item>
+      <v-window-item value="3">
+        <div class="d-flex flex-column">
+          <MyChartPen></MyChartPen>
+        </div>
+      </v-window-item>
+    </v-window>
+  </v-row>
 </template>
 
 <script>

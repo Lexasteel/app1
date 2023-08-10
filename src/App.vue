@@ -1,9 +1,11 @@
 <template>
   <v-app>
-    <my-app-bar> </my-app-bar>
-    <v-main>
-      <router-view />
-    </v-main>
+    <v-container fluid="true">
+      <my-app-bar> </my-app-bar>
+      <v-main>
+        <router-view />
+      </v-main>
+    </v-container>
   </v-app>
 </template>
 

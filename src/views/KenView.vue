@@ -1,34 +1,31 @@
 <template>
-  <v-container>
-    <v-row no-gutters>
-      <v-col>
-        <v-tabs v-model="tab">
-          <v-tab v-for="unit in units" :key="unit.id">{{ unit.text }}</v-tab>
-        </v-tabs>
-      </v-col>
-      <v-col cols="2">
-        <my-month-picker @change="() => dataSource.reload()"></my-month-picker>
-      </v-col>
+  <v-row no-gutters>
+    <v-col>
+      <v-tabs v-model="tab">
+        <v-tab v-for="unit in units" :key="unit.id">{{ unit.text }}</v-tab>
+      </v-tabs>
+    </v-col>
+    <v-col cols="2">
+      <my-month-picker @change="() => dataSource.reload()"></my-month-picker>
+    </v-col>
 
-      <v-window v-model="tab">
-        <v-window-item v-for="unit in units" :key="unit.id">
-          <DxDataGrid
-            :columns="columnsKen(unit.id, unit.id)"
-            :data-source="dataSource"
-            no-data-text=""
-            :showBorders="true"
-            :focusedRowEnabled="true"
-            :word-wrap-enabled="true"
-            @exporting="onExporting"
-          >
-            <DxLoadPanel :enabled="true" />
-            <DxPaging :enabled="false" />
-            <DxExport :enabled="true" />
-          </DxDataGrid>
-        </v-window-item>
-      </v-window>
-    </v-row>
-  </v-container>
+    <v-window v-model="tab">
+      <v-window-item v-for="unit in units" :key="unit.id">
+        <DxDataGrid
+          :columns="columnsKen(unit.id, unit.id)"
+          :data-source="dataSource"
+          no-data-text=""
+          :showBorders="true"
+          :word-wrap-enabled="true"
+          @exporting="onExporting"
+        >
+          <DxLoadPanel :enabled="true" />
+          <DxPaging :enabled="false" />
+          <DxExport :enabled="true" />
+        </DxDataGrid>
+      </v-window-item>
+    </v-window>
+  </v-row>
 </template>
 <script>
 export default {

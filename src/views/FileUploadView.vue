@@ -1,69 +1,67 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="5">
-        <my-file-uploader
-          @uploaded="(res) => res.forEach((element) => modelLog.push(element))"
-        >
-        </my-file-uploader>
+  <v-row>
+    <v-col cols="5">
+      <my-file-uploader
+        @uploaded="(res) => res.forEach((element) => modelLog.push(element))"
+      >
+      </my-file-uploader>
 
-        <v-sheet
-          class="mt-2 mx-auto py-3 px-8 rounded-lg"
-          elevation="6"
-          width="100%"
-        >
-          <v-progress-linear
-            :indeterminate="loading"
-            color="primary"
-            height="10"
-            rounded
-          ></v-progress-linear>
-          <ul>
-            <li v-for="item in modelLog" :key="item">
-              {{ item }}
-            </li>
-          </ul>
-        </v-sheet>
-      </v-col>
-      <v-col>
-        <v-row>
-          <v-col class="pr-0">
-            <v-radio-group
-              inline
-              v-model="modelUnits"
-              @update:model-value="updateUnit"
-              hide-details="true"
-            >
-              <template v-for="unit in unitsRadio" :key="unit">
-                <v-radio
-                  :label="unit + ''"
-                  :value="unit"
-                  color="primary"
-                ></v-radio>
-              </template>
-            </v-radio-group>
-          </v-col>
-          <v-col cols="3" class="d-flex align-items:center">
-            <Datepicker
-              v-model="date"
-              @update:model-value="setDate"
-              auto-apply
-              locale="uk"
-              :clearable="false"
-              format="dd.MM.yyyy"
-            />
-          </v-col>
-          <v-col cols="2">
-            <v-btn @click="btnSubmit"> Submit</v-btn>
-          </v-col>
-        </v-row>
-        <v-btn class="ma-3" @click="btnRecalc"> Recalc</v-btn>
-        <v-btn class="ma-3" @click="btnCheckData"> Check</v-btn>
+      <v-sheet
+        class="mt-2 mx-auto py-3 px-8 rounded-lg"
+        elevation="6"
+        width="100%"
+      >
+        <v-progress-linear
+          :indeterminate="loading"
+          color="primary"
+          height="10"
+          rounded
+        ></v-progress-linear>
+        <ul>
+          <li v-for="item in modelLog" :key="item">
+            {{ item }}
+          </li>
+        </ul>
+      </v-sheet>
+    </v-col>
+    <v-col>
+      <v-row>
+        <v-col class="pr-0">
+          <v-radio-group
+            inline
+            v-model="modelUnits"
+            @update:model-value="updateUnit"
+            hide-details="true"
+          >
+            <template v-for="unit in unitsRadio" :key="unit">
+              <v-radio
+                :label="unit + ''"
+                :value="unit"
+                color="primary"
+              ></v-radio>
+            </template>
+          </v-radio-group>
+        </v-col>
+        <v-col cols="3" class="d-flex align-items:center">
+          <Datepicker
+            v-model="date"
+            @update:model-value="setDate"
+            auto-apply
+            locale="uk"
+            :clearable="false"
+            format="dd.MM.yyyy"
+          />
+        </v-col>
+        <v-col cols="2">
+          <v-btn @click="btnSubmit"> Submit</v-btn>
+        </v-col>
+      </v-row>
+      <v-btn class="ma-3" @click="btnRecalc"> Recalc</v-btn>
+      <v-btn class="ma-3" @click="btnCheckData"> Check</v-btn>
 
-        <my-grid-edit ref="myGridEditref"></my-grid-edit>
-      </v-col>
-    </v-row>
-  </v-container>
+      <my-grid-edit ref="myGridEditref"></my-grid-edit>
+    </v-col>
+  </v-row>
 </template>
 <script>
 export default {

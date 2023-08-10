@@ -1,68 +1,66 @@
 <template>
-  <v-container>
-    <v-row no-gutters>
-      <v-col>
-        <v-tabs v-model="tab">
-          <v-tab value="24">{{ tabs[0].text }}</v-tab>
-          <v-tab value="140">{{ tabs[1].text }}</v-tab>
-        </v-tabs>
-      </v-col>
-      <v-col cols="2">
-        <my-month-picker @change="() => dataSource.reload()"></my-month-picker>
-      </v-col>
+  <v-row no-gutters>
+    <v-col>
+      <v-tabs v-model="tab">
+        <v-tab value="24">{{ tabs[0].text }}</v-tab>
+        <v-tab value="140">{{ tabs[1].text }}</v-tab>
+      </v-tabs>
+    </v-col>
+    <v-col cols="2">
+      <my-month-picker @change="() => dataSource.reload()"></my-month-picker>
+    </v-col>
 
-      <v-window v-model="tab">
-        <v-window-item value="24">
-          <DxDataGrid
-            :columns="columns24"
-            :data-source="dataSource"
-            no-data-text=""
-            :hoverStateEnabled="true"
-            :showBorders="true"
-            :focusedRowEnabled="true"
-            :word-wrap-enabled="true"
-            @exporting="onExporting"
-            :show-column-lines="true"
-          >
-            <DxEditing
-              :allow-updating="true"
-              mode="batch"
-              :select-text-on-edit-start="true"
-              start-edit-action="dblClick"
-            />
-            <DxSelection mode="single"></DxSelection>
-            <DxLoadPanel :enabled="true" />
-            <DxPaging :enabled="false" />
-            <DxExport :enabled="true" :allow-export-selected-data="true" />
-          </DxDataGrid>
-        </v-window-item>
-        <v-window-item value="140">
-          <DxDataGrid
-            :columns="columns140"
-            :data-source="dataSource"
-            no-data-text=""
-            :hoverStateEnabled="true"
-            :showBorders="true"
-            :focusedRowEnabled="true"
-            :word-wrap-enabled="true"
-            @exporting="onExporting"
-            :show-column-lines="true"
-          >
-            <DxEditing
-              :allow-updating="true"
-              mode="batch"
-              :select-text-on-edit-start="true"
-              start-edit-action="dblClick"
-            />
-            <DxSelection mode="single"></DxSelection>
-            <DxLoadPanel :enabled="true" />
-            <DxPaging :enabled="false" />
-            <DxExport :enabled="true" :allow-export-selected-data="true" />
-          </DxDataGrid>
-        </v-window-item>
-      </v-window>
-    </v-row>
-  </v-container>
+    <v-window v-model="tab">
+      <v-window-item value="24">
+        <DxDataGrid
+          :columns="columns24"
+          :data-source="dataSource"
+          no-data-text=""
+          :hoverStateEnabled="true"
+          :showBorders="true"
+          :focusedRowEnabled="true"
+          :word-wrap-enabled="true"
+          @exporting="onExporting"
+          :show-column-lines="true"
+        >
+          <DxEditing
+            :allow-updating="true"
+            mode="batch"
+            :select-text-on-edit-start="true"
+            start-edit-action="dblClick"
+          />
+          <DxSelection mode="single"></DxSelection>
+          <DxLoadPanel :enabled="true" />
+          <DxPaging :enabled="false" />
+          <DxExport :enabled="true" :allow-export-selected-data="true" />
+        </DxDataGrid>
+      </v-window-item>
+      <v-window-item value="140">
+        <DxDataGrid
+          :columns="columns140"
+          :data-source="dataSource"
+          no-data-text=""
+          :hoverStateEnabled="true"
+          :showBorders="true"
+          :focusedRowEnabled="true"
+          :word-wrap-enabled="true"
+          @exporting="onExporting"
+          :show-column-lines="true"
+        >
+          <DxEditing
+            :allow-updating="true"
+            mode="batch"
+            :select-text-on-edit-start="true"
+            start-edit-action="dblClick"
+          />
+          <DxSelection mode="single"></DxSelection>
+          <DxLoadPanel :enabled="true" />
+          <DxPaging :enabled="false" />
+          <DxExport :enabled="true" :allow-export-selected-data="true" />
+        </DxDataGrid>
+      </v-window-item>
+    </v-window>
+  </v-row>
 </template>
 <script>
 export default {
