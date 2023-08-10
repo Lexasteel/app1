@@ -1,6 +1,14 @@
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #eaddff;
+}
+
+body,
+.dx-badge {
+  background-color: #d1c4e9;
+}
+
+.dx-badge {
+  color: #6750a4;
 }
 
 .row-alarm > td {
@@ -11,19 +19,16 @@ body {
   font-weight: bold !important;
 }
 
-.month .dx-texteditor-input {
-  text-align: center;
-}
-
 .grey {
   /*background-color: #d5d5d5;*/
   font-weight: bold;
 }
 
+.dx-tab {
+  background-color: #ede7f6;
+}
+
 .dx-tab-text {
-  /*word-wrap: break-word;
-  white-space: pre-wrap;
-  //width: 50px;*/
   font-size: large;
 }
 
@@ -42,7 +47,8 @@ body {
 }
 
 .dx-data-row .cell-highlighted5,
-.dx-header-row .cell-highlighted5 {
+.dx-header-row .cell-highlighted5,
+.dp__theme_light .--dp-background-color {
   background-color: #ede7f6;
 }
 

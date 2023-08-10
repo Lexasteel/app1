@@ -14,16 +14,16 @@
     <router-link :to="{name: 'pen'}" class="button;">ПЭН</router-link>
     <router-link :to="{name: 'shbm'}" class="button;">ШБМ</router-link>
     <router-link :to="{name: 'upload'}" class="button;">Загрузить</router-link> -->
-    <v-btn :to="{name: 'ape'}"> Анализ пусков </v-btn>
+    <v-btn :to="{name: 'ape'}" color="primary"> Анализ пусков </v-btn>
     <!-- <v-spacer></v-spacer> -->
-    <v-btn :to="{name: 'rou'}"> РОУ </v-btn>
+    <v-btn :to="{name: 'rou'}" color="primary"> РОУ </v-btn>
     <!-- <v-spacer></v-spacer> -->
-    <v-btn :to="{name: 'ken'}"> KЭН </v-btn>
-    <v-btn :to="{name: 'pen'}"> ПЭН </v-btn>
+    <v-btn :to="{name: 'ken'}" color="primary"> KЭН </v-btn>
+    <v-btn :to="{name: 'pen'}" color="primary"> ПЭН </v-btn>
     <!-- <v-spacer></v-spacer> -->
-    <v-btn :to="{name: 'shbm'}"> ШБМ </v-btn>
+    <v-btn :to="{name: 'shbm'}" color="primary"> ШБМ </v-btn>
     <!-- <v-spacer></v-spacer> -->
-    <v-btn :to="{name: 'upload'}"> Загрузка </v-btn>
+    <v-btn :to="{name: 'upload'}" color="primary"> Загрузка </v-btn>
     <v-spacer></v-spacer>
     <template v-slot:append>
       <v-btn icon="mdi-dots-vertical"></v-btn>

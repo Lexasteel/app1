@@ -20,7 +20,7 @@ const myCustomLightTheme = {
   dark: false,
   colors: {
     background: '#EADDFF',
-    'background-bar': '##625B71',
+    'background-bar': '#625B71',
     primary: '#6750a4',
     secondary: '#b4b0bb',
     tertiary: '#7d5260',

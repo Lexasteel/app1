@@ -90,7 +90,7 @@ export const columns24 = [
   {
     dataField: 'output',
     caption: 'Отпуск э/э за сутки кВт*ч',
-    cssClass: 'cell-highlighted' + 5,
+    cssClass: 'cell-highlighted6',
   },
   {
     dataField: 'hourly',
@@ -130,7 +130,7 @@ export const columns140 = [
     dataField: 'output3',
     caption: 'Блок 3 Отпуск э/э за сутки, кВт*ч',
     allowEditing: true,
-    cssClass: 'cell-highlighted' + 5,
+    cssClass: 'cell-highlighted6',
   },
   {
     dataField: 'unit7Big',
@@ -142,7 +142,7 @@ export const columns140 = [
     dataField: 'output7',
     caption: 'Блок 7 Отпуск э/э за сутки, кВт*ч',
     allowEditing: true,
-    cssClass: 'cell-highlighted' + 5,
+    cssClass: 'cell-highlighted6',
   },
   {
     dataField: 'unit9Big',
@@ -154,7 +154,7 @@ export const columns140 = [
     dataField: 'output9',
     caption: 'Блок 9 Отпуск э/э за сутки, кВт*ч',
     allowEditing: true,
-    cssClass: 'cell-highlighted' + 5,
+    cssClass: 'cell-highlighted6',
   },
   {
     dataField: 'summa140',
@@ -175,7 +175,7 @@ export const columns140 = [
   {
     dataField: 'output',
     caption: 'Отпуск э/э за сутки кВт*ч',
-    cssClass: 'cell-highlighted' + 5,
+    cssClass: 'cell-highlighted6',
   },
   //{
   //  dataField: "hourly",
