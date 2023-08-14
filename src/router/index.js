@@ -4,6 +4,7 @@ import RouView from '@/views/RouView'
 import KenView from '@/views/KenView'
 import PenView from '@/views/PenView'
 import ShbmView from '@/views/ShbmView'
+import LoginView from '@/views/LoginView'
 import FileUploadView from '@/views/FileUploadView'
 const routes = [
   {
@@ -36,12 +37,26 @@ const routes = [
     name: 'upload',
     component: FileUploadView,
   },
+  {
+    path: '/pudps/login',
+    name: 'login',
+    component: LoginView,
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
 
   routes,
+})
+
+router.beforeEach((to, from, next) => {
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ['/pudps/login']
+  const authRequired = !publicPages.includes(to.path)
+  const loggedIn = localStorage.getItem('user')
+  if (!loggedIn && authRequired) next({name: 'login'})
+  else next()
 })
 
 export default router
