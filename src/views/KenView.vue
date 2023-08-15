@@ -15,10 +15,13 @@
           :columns="columnsKen(unit.id, unit.id)"
           :data-source="dataSource"
           no-data-text=""
-          :showBorders="true"
+          :show-borders="true"
           :word-wrap-enabled="true"
           @exporting="onExporting"
+          :show-column-lines="true"
+          :show-row-lines="true"
         >
+          <DxSelection mode="single"> </DxSelection>
           <DxLoadPanel :enabled="true" />
           <DxPaging :enabled="false" />
           <DxExport :enabled="true" />
@@ -44,6 +47,7 @@ import {
   DxExport,
   DxLoadPanel,
   DxPaging,
+  DxSelection,
 } from 'devextreme-vue/data-grid'
 import {columnsKen} from '@/components/ColumnsKen.js'
 import {units} from '@/components/units'

@@ -31,13 +31,12 @@
               :columns="columnsPen(unit.id, unit.id)"
               :data-source="dataSource"
               no-data-text=""
-              :hoverStateEnabled="true"
               :showBorders="true"
-              :focusedRowEnabled="true"
               :word-wrap-enabled="true"
               @exporting="onExporting"
               :column-min-width="70"
             >
+              <DxSelection mode="single"> </DxSelection>
               <DxLoadPanel :enabled="true" />
               <DxPaging :enabled="false" />
               <DxExport :enabled="true" />
@@ -50,9 +49,7 @@
           :columns="columnsPower(0, 0)"
           :data-source="dataSourcePower"
           no-data-text=""
-          :hoverStateEnabled="true"
           :showBorders="true"
-          :focusedRowEnabled="true"
           :word-wrap-enabled="true"
           @exporting="onExporting"
           :show-column-lines="true"

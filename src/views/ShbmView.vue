@@ -15,7 +15,6 @@
           :columns="columnsSHBM(unit.id, unit.id)"
           :data-source="dataSource"
           no-data-text=""
-          :hoverStateEnabled="true"
           :showBorders="true"
           @exporting="onExporting"
           :word-wrap-enabled="true"

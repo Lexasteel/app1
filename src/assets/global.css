@@ -46,7 +46,12 @@ body,
 .dx-toolbar {
   background-color: transparent;
 }
-
+.dx-datagrid-headers,
+.dx-data-grid-borders .dx-data-grid,
+.dx-datagrid .dx-column-lines > td {
+  color: #000;
+  border-right: #000;
+}
 .column-date {
   background-color: #d1c4e9;
 }

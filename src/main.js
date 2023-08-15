@@ -1,5 +1,5 @@
 import 'devextreme/dist/css/dx.common.css'
-import 'devextreme/dist/css/dx.material.orange.light.compact.css'
+import 'devextreme/dist/css/dx.light.compact.css'
 import '@/assets/global.css'
 import {createApp} from 'vue'
 import App from './App.vue'
