@@ -20,6 +20,7 @@
           @exporting="onExporting"
           :show-column-lines="true"
           :show-row-lines="true"
+          height="83vh"
         >
           <DxSelection mode="single"> </DxSelection>
           <DxLoadPanel :enabled="true" />
@@ -61,14 +62,21 @@ const store = useStore()
 const tab = ref(null)
 const dataSource = new DataSource({
   store: new CustomStore({
-    key: 'date',
+    key: 'datetime',
     load: () => {
       return axios
-        .get('kens', {
+        .get('devices', {
           params: {
             date: moment(store.state.date).format('YYYY-MM-01'),
           },
         })
+        .then((response) => {
+          // handle success
+          console.log(response.data.datetime)
+          //console.log(JSON.parse(response.data.data))
+          return response
+        })
+
         .catch((e) => {
           console.log(e)
         })

@@ -25,19 +25,19 @@ export function columnsPen(s, f) {
         cssClass: 'cell-highlighted' + i,
         columns: [
           {
-            dataField: 'time' + i + 'A',
+            dataField: 'PenATime' + i,
             caption: 'Время, час',
             alignment: 'center',
             cssClass: 'cell-highlighted' + i,
           },
           {
-            dataField: 'flow' + i + 'A',
+            dataField: 'PenAFlow' + i,
             caption: 'Расход, т/час',
             alignment: 'center',
             cssClass: 'cell-highlighted' + i,
           },
           {
-            dataField: 'powr' + i + 'A',
+            dataField: 'PenAAmpr' + i,
             caption: 'Ток, А',
             alignment: 'center',
             cssClass: 'cell-highlighted' + i,
@@ -50,19 +50,19 @@ export function columnsPen(s, f) {
         cssClass: 'cell-highlighted' + i,
         columns: [
           {
-            dataField: 'time' + i + 'B',
+            dataField: 'PenBTime' + i,
             caption: 'Время, час',
             alignment: 'center',
             cssClass: 'cell-highlighted' + i,
           },
           {
-            dataField: 'flow' + i + 'B',
+            dataField: 'PenBFlow' + i,
             caption: 'Расход, т/час',
             alignment: 'center',
             cssClass: 'cell-highlighted' + i,
           },
           {
-            dataField: 'powr' + i + 'B',
+            dataField: 'PenBAmpr' + i,
             caption: 'Ток, А',
             alignment: 'center',
             cssClass: 'cell-highlighted' + i,
@@ -101,7 +101,7 @@ export function columnsPower(s, f) {
         cssClass: 'cell-highlighted' + i,
         columns: [
           {
-            dataField: 'time' + i + 'A',
+            dataField: 'PenATimeCons' + i,
             width: gridwidth,
             caption: 'Время, час',
             alignment: 'center',
@@ -110,7 +110,7 @@ export function columnsPower(s, f) {
             dataType: 'number',
           },
           {
-            dataField: 'powr' + i + 'A',
+            dataField: 'PenAPowrCons' + i,
             width: gridwidth + 20,
             caption: 'Потр. э/э, кВт*ч',
             dataType: 'number',
@@ -125,7 +125,7 @@ export function columnsPower(s, f) {
         cssClass: 'cell-highlighted' + i,
         columns: [
           {
-            dataField: 'time' + i + 'B',
+            dataField: 'PenBTimeCons' + i,
             width: gridwidth,
             caption: 'Время, час',
             alignment: 'center',
@@ -133,7 +133,7 @@ export function columnsPower(s, f) {
             allowEditing: false,
           },
           {
-            dataField: 'powr' + i + 'B',
+            dataField: 'PenBPowrCons' + i,
             width: gridwidth + 20,
             caption: 'Потр. э/э, кВт*ч',
             alignment: 'center',

@@ -18,6 +18,9 @@
           :showBorders="true"
           @exporting="onExporting"
           :word-wrap-enabled="true"
+          :show-column-lines="true"
+          :show-row-lines="true"
+          height="83vh"
         >
           <DxSelection mode="single"> </DxSelection>
           <DxLoadPanel :enabled="true" />
@@ -59,7 +62,7 @@ const dataSource = new DataSource({
     key: 'datetime',
     load: () => {
       return axios
-        .get('shbm', {
+        .get('devices', {
           params: {
             date: moment(store.state.date).format('YYYY-MM-01'),
           },

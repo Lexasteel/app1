@@ -1,5 +1,5 @@
 <template>
-  <v-row no-gutters>
+  <v-row no-gutters class="d-flex justify-center">
     <v-col>
       <v-tabs v-model="tabParent">
         <v-tab value="1">Наработка</v-tab>
@@ -35,6 +35,7 @@
               :word-wrap-enabled="true"
               @exporting="onExporting"
               :column-min-width="70"
+              height="75vh"
             >
               <DxSelection mode="single"> </DxSelection>
               <DxLoadPanel :enabled="true" />
@@ -53,6 +54,8 @@
           :word-wrap-enabled="true"
           @exporting="onExporting"
           :show-column-lines="true"
+          height="83vh"
+          width="1482px"
         >
           <DxEditing
             :allow-updating="true"
@@ -64,7 +67,7 @@
           <DxScrolling mode="virtual" />
           <DxLoadPanel :enabled="true" />
           <DxPaging :enabled="false" />
-          <DxExport :enabled="true" :allow-export-selected-data="true" />
+          <DxExport :enabled="true" />
         </DxDataGrid>
       </v-window-item>
       <v-window-item value="3">
@@ -113,10 +116,10 @@ const tabChild = ref(null)
 
 const dataSource = new DataSource({
   store: new CustomStore({
-    key: 'id',
+    key: 'datetime',
     load: () => {
       return axios
-        .get('pens', {
+        .get('devices', {
           params: {
             date: moment(store.state.date).format('YYYY-MM-01'),
           },
@@ -130,16 +133,18 @@ const dataSource = new DataSource({
 
 const dataSourcePower = new DataSource({
   store: new CustomStore({
-    key: 'id',
+    key: 'datetime',
     load: () => {
-      return axios.get('pens/Power').catch((e) => {
-        console.log(e)
+      return axios.get('devices/pens', {
+        params: {
+          date: moment(store.state.date).format('YYYY-MM-01'),
+        },
       })
     },
     update: (key, values) => {
       // console.log('key=', key, 'val=', values)
       return axios
-        .put('pens/Power', {
+        .put('devices/pens', {
           id: key,
           values: values,
         })
